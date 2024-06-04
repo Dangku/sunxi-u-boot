@@ -345,14 +345,14 @@
 #if CONFIG_MMC_SUNXI_SLOT_EXTRA != -1
 #define BOOTENV_DEV_MMC_AUTO(devtypeu, devtypel, instance)		\
 	BOOTENV_DEV_MMC(MMC, mmc, 0)					\
-	BOOTENV_DEV_MMC(MMC, mmc, 1)					\
+	BOOTENV_DEV_MMC(MMC, mmc, 2)					\
 	"bootcmd_mmc_auto="						\
-		"if test ${mmc_bootdev} -eq 1; then "			\
-			"run bootcmd_mmc1; "				\
+		"if test ${mmc_bootdev} -eq 2; then "			\
+			"run bootcmd_mmc2; "				\
 			"run bootcmd_mmc0; "				\
 		"elif test ${mmc_bootdev} -eq 0; then "			\
 			"run bootcmd_mmc0; "				\
-			"run bootcmd_mmc1; "				\
+			"run bootcmd_mmc2; "				\
 		"fi\0"
 
 #define BOOTENV_DEV_NAME_MMC_AUTO(devtypeu, devtypel, instance) \
