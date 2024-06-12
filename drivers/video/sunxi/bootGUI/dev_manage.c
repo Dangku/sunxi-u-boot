@@ -25,7 +25,7 @@
 
 #define DISPLAY_PARTITION_NAME "Reserve0"
 //#define DISPLAY_RSL_FILENAME "/boot/disp_rsl.fex"
-#define DISPLAY_RSL_FILENAME "/boot/orangepiEnv.txt"
+#define DISPLAY_RSL_FILENAME "env.txt"
 static disp_device_t g_devices[DISP_DEV_NUM];
 
 enum {

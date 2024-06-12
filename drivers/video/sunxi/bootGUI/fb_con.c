@@ -23,7 +23,7 @@
 #include "video_hal.h"
 #include "video_misc_hal.h"
 
-#define DISPLAY_FB_FILENAME "/boot/orangepiEnv.txt"
+#define DISPLAY_FB_FILENAME "env.txt"
 
 static framebuffer_t s_fb_list[FRAMEBUFFER_NUM];
 
