@@ -492,7 +492,7 @@ static int sunxi_mmc_core_init(struct mmc *mmc)
 
 	/* Reset controller */
 	writel(SUNXI_MMC_GCTRL_RESET, &priv->reg->gctrl);
-	udelay(1000);
+	udelay(20000);
 
 	return 0;
 }
@@ -543,6 +543,10 @@ struct mmc *sunxi_mmc_init(int sdc_no)
 
 	cfg->f_min = 400000;
 	cfg->f_max = 52000000;
+	
+	if (sdc_no == 2) {
+		cfg->f_max = 8000000;
+	}
 
 	if (mmc_resource_init(sdc_no) != 0)
 		return NULL;
@@ -640,20 +644,26 @@ static int sunxi_mmc_probe(struct udevice *dev)
 	struct mmc_config *cfg = &plat->cfg;
 	struct ofnode_phandle_args args;
 	u32 *ccu_reg;
-	int ret;
+	int bus_width, ret;
 
 	cfg->name = dev->name;
+	bus_width = dev_read_u32_default(dev, "bus-width", 1);
 
 	cfg->voltages = MMC_VDD_32_33 | MMC_VDD_33_34;
+	cfg->host_caps = 0;
+	if (bus_width == 8)
+		cfg->host_caps |= MMC_MODE_8BIT;
+	if (bus_width >= 4)
+		cfg->host_caps |= MMC_MODE_4BIT;
 	cfg->host_caps = MMC_MODE_HS_52MHz | MMC_MODE_HS;
 	cfg->b_max = CONFIG_SYS_MMC_MAX_BLK_COUNT;
 
 	cfg->f_min = 400000;
 	cfg->f_max = 52000000;
 
-	ret = mmc_of_parse(dev, cfg);
-	if (ret)
-		return ret;
+	if (bus_width == 8) {
+		cfg->f_max = 52000000;
+	}
 
 	priv->reg = dev_read_addr_ptr(dev);
 

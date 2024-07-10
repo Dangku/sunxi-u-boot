@@ -226,6 +226,15 @@ int board_init(void)
 	if (ret)
 		return ret;
 
+#if CONFIG_MACH_SUN50I_H616
+	/*
+	 * The bit[16] of register reg[0x03000000] must be zero for the THS
+	 * driver to work properly in the kernel. The BSP u-boot is putting
+	 * the whole register to zero so we are doing the same.
+	 */
+	writel(0x0, SUNXI_SRAMC_BASE);
+#endif
+
 #if CONFIG_IS_ENABLED(DM_I2C)
 	/*
 	 * Temporary workaround for enabling I2C clocks until proper sunxi DM
