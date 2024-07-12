@@ -58,11 +58,6 @@
 	cpu-supply = <&reg_dcdc2>;
 };
 
-/* Connected to an on-board RTL8821CU USB WiFi chip. */
-&ehci1 {
-	status = "okay";
-};
-
 &ehci3 {
 	status = "okay";
 };
