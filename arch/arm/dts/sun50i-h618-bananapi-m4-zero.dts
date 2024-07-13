@@ -74,7 +74,7 @@
 };
 
 &ir {
-	status = "okay";
+	status = "disabled";
 };
 
 &mdio0 {

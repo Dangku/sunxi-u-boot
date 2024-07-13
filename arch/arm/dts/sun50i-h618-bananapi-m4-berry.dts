@@ -79,11 +79,6 @@
 	phy-supply = <&reg_gmac_3v3>;
 	allwinner,rx-delay-ps = <3100>;
 	allwinner,tx-delay-ps = <700>;
-
-//	snps,reset-gpio = <&pio 8 16 GPIO_ACTIVE_LOW>;
-//	snps,reset-delays-us = <0 10000 1000000>;
-//	snps,reset-active-low;
-
 	status = "okay";
 };
 
