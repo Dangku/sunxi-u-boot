@@ -195,17 +195,21 @@ void smp_init(void)
 
 int sunxi_plat_init(void)
 {
+#ifdef CONFIG_SUNXI_SECURE_BOOT
 	sunxi_probe_securemode();
+#endif
 #ifdef CONFIG_SUNXI_DMA
 	sunxi_dma_init();
 #endif
 
+#ifdef CONFIG_SUNXI_SECURE_BOOT
 #ifdef CONFIG_ARM
 	extern int secure_os_memory_init(void);
 	if (sunxi_probe_secure_os()) {
 		smc_tee_inform_fdt((uint64_t)(unsigned long)working_fdt, gd->fdt_size);
 		secure_os_memory_init();
 	}
+#endif
 #endif
 	return 0;
 }
@@ -216,6 +220,8 @@ int board_init(void)
 	__maybe_unused int id_pfr1, ret, satapwr_pin, macpwr_pin;
 
 	gd->bd->bi_boot_params = (PHYS_SDRAM_0 + 0x100);
+
+	tick_printf("sunxi board_init\n");
 
 	sunxi_plat_init();
 

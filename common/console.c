@@ -855,6 +855,7 @@ int console_init_f(void)
 	else
 		debug_mode = 8;
 	gd->debug_mode = debug_mode;
+
 #if CONFIG_IS_ENABLED(PRE_CONSOLE_BUFFER)
 	memset((char *)(CONFIG_PRE_CON_BUF_ADDR + gd->precon_buf_idx), 0, CONFIG_PRE_CON_BUF_SZ - gd->precon_buf_idx);
 #endif

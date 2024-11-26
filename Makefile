@@ -876,6 +876,10 @@ else
 DO_STATIC_RELA =
 endif
 
+# Always append ALL so that arch config.mk's can add custom ones
+ALL-y += u-boot.srec u-boot.bin u-boot.sym System.map binary_size_check
+ALL-$(CONFIG_ARCH_SUNXI) += u-boot-$(CONFIG_SYS_CONFIG_NAME).bin
+
 ALL-$(CONFIG_ONENAND_U_BOOT) += u-boot-onenand.bin
 ifeq ($(CONFIG_SPL_FSL_PBL),y)
 ALL-$(CONFIG_RAMBOOT_PBL) += u-boot-with-spl-pbl.bin
@@ -1031,6 +1035,18 @@ else
 u-boot.bin: u-boot-nodtb.bin FORCE
 	$(call if_changed,copy)
 endif
+TARGET_BIN_DECORATOR :=
+ifeq ($(CONFIG_SUNXI_NOR_IMG),y)
+TARGET_BIN_DECORATOR := -spinor
+ifeq ($(CONFIG_SUNXI_SECURE_BOOT),y)
+TARGET_BIN_DECORATOR := $(TARGET_BIN_DECORATOR)-secure
+endif
+endif
+
+TARGET_BIN_NAME := u-boot$(TARGET_BIN_DECORATOR)-$(CONFIG_SYS_CONFIG_NAME).bin
+
+u-boot-$(CONFIG_SYS_CONFIG_NAME).bin:   u-boot.bin
+	@cp -v $<    $@
 
 %.imx: %.bin
 	$(Q)$(MAKE) $(build)=arch/arm/mach-imx $@

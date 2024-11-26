@@ -647,6 +647,7 @@ int axp_battery_status_handle(void)
 #endif
 
 	if (battery_status == BATTERY_IS_NOT_EXIST) {
+		tick_printf("batt not exist\n");
 		if (charge_mode == 2) {
 			tick_printf("press power_on to start up\n");
 			sunxi_bat_key_handle();
@@ -803,11 +804,15 @@ int sunxi_update_axp_info(void)
 	case AXP_BOOT_SOURCE_BATTERY:
 		strncpy(bootreason, "battery", sizeof("battery"));
 		break;
+	case AXP_BOOT_SOURCE_REBOOT:
+		strncpy(bootreason, "reboot", sizeof("reboot"));
+		break;
 	default:
 		strncpy(bootreason, "unknow", sizeof("unknow"));
 		break;
 	}
 	env_set("bootreason", bootreason);
+	tick_printf("bootreason: %s\n", bootreason);
 	return 0;
 }
 

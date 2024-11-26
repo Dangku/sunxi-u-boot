@@ -20,11 +20,13 @@ int bmu_axp2202_get_battery_probe_check(void)
 	int ret = 0, bat_exist = 0;
 
 	ret = script_parser_fetch(FDT_PATH_POWER_SPLY, "battery_exist", &bat_exist, 1);
-	if (ret < 0)
+	if (ret < 0) {
 		bat_exist = 1;
+	}
 
-	if (!bat_exist)
+	if (!bat_exist) {
 		return 0;
+	}
 
 	if (pmic_bus_read(AXP2202_RUNTIME_ADDR, AXP2202_COMM_STATUS0, &reg_value)) {
 		return -1;
@@ -204,7 +206,7 @@ int bmu_axp2202_get_poweron_source(void)
 
 	/* if have reboot flag, then return -1*/
 	if (bmu_axp2202_get_sys_mode())
-		return -1;
+		return AXP_BOOT_SOURCE_REBOOT;
 
 	if (pmic_bus_read(AXP2202_RUNTIME_ADDR, AXP2202_PWRON_STATUS, &reg_value)) {
 		return -1;

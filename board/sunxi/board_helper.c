@@ -307,7 +307,7 @@ int sunxi_str_replace_all(char *dest_buf, char *goal, char *replace)
 	return 0;
 }
 
-
+#ifdef CONFIG_RECOVERY_KEY
 static int write_recovery_msg_to_misc(char *recovery_msg)
 {
 	u32 misc_offset = 0;
@@ -346,8 +346,6 @@ static int write_recovery_msg_to_misc(char *recovery_msg)
 	sunxi_flash_write(misc_offset, 2048 / 512, misc_args);
 	return 0;
 }
-
-#ifdef CONFIG_RECOVERY_KEY
 
 #define RECOVERY_KEY_EFEX_MODE				(0x0)
 #define RECOVERY_KEY_ONEKEY_SPRITE_RECOVERY_MODE	(0x1)
@@ -583,6 +581,7 @@ int check_recovery_key(void)
 }
 #endif
 
+#ifdef CONFIG_SUNXI_IR
 void sunxi_respond_ir_key_action(void)
 {
 	int key_value;
@@ -615,6 +614,7 @@ void sunxi_respond_ir_key_action(void)
 		write_recovery_msg_to_misc("ir-or-key-recovery");
 	}
 }
+#endif
 
 #ifndef CONFIG_BOOTCMD_SKIP_RTC
 static int sunxi_get_bootcmd_from_rtc(void)
@@ -983,7 +983,7 @@ int get_dragonboard_test(struct fdt_header *point_fdt,
 			 uint32_t *dragon_board_test)
 {
 	int nodeoffset, err;
-	nodeoffset = fdt_path_offset(point_fdt, "/soc/platform");
+	nodeoffset = fdt_path_offset(point_fdt, "/soc/target");
 	if (nodeoffset < 0) {
 		pr_err("libfdt fdt_path_offset() returned %s\n",
 		       fdt_strerror(nodeoffset));

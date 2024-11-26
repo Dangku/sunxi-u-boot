@@ -1867,6 +1867,7 @@ config CMD_SUNXI_SPRITE
 
 config CMD_SUNXI_EFEX
 	bool "efex test"
+	default n
 	help
 	  Activate this option to test sunxi efex.
 
@@ -1900,12 +1901,6 @@ config CMD_SUNXI_PWM
 	default y
 	help
 	  Activate this option to test sunxi pwm.
-
-config CMD_SUNXI_EFEX
-	bool "sunxi efex test"
-	default y
-	help
-	  Activate this option to test sunxi fel mode.
 
 config CMD_FASTBOOT
 	bool "enable fastboot"

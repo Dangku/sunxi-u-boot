@@ -839,7 +839,7 @@ sunxi_flash_desc sunxi_sdmmcs_desc = {
 
 int sdmmc_init_for_boot(int workmode, int card_no)
 {
-	pr_debug("MMC:	 %d\n", card_no);
+	printf("MMC:	 %d\n", card_no);
 
 	if (!mmc_has_pre_init) {
 		mmc_has_pre_init = 1;

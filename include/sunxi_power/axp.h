@@ -95,7 +95,7 @@ int (*get_battery_probe_ext)(void); /*Get the flag of the power on*/
 #define AXP_BOOT_SOURCE_VBUS_USB       2
 #define AXP_BOOT_SOURCE_CHARGER                3
 #define AXP_BOOT_SOURCE_BATTERY                4
-
+#define AXP_BOOT_SOURCE_REBOOT             5
 
 int pmu_probe(void);
 int pmu_get_info(char *name, unsigned char *chipid);

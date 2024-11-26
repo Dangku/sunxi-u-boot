@@ -609,7 +609,9 @@ extern int usb_auto_detect_device(void);
 #ifdef CONFIG_ENABLE_MTD_CMDLINE_PARTS_BY_ENV
 		initr_env();
 #endif
+#ifdef CONFIG_TINA_LINUX
 		sunxi_probe_partition_map();
+#endif
 	}
 
 #ifdef CONFIG_SUNXI_ROTPK_BURN_ENABLE_BY_TOOL

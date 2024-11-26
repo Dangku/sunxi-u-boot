@@ -635,16 +635,21 @@ static void usb_show_info(struct usb_device *udev)
 #include <physical_key.h>
 int usb_auto_detect_device(void)
 {
+#ifdef CONFIG_SUNXI_PHY_KEY
 	int key = -2;
 
+#ifdef CONFIG_SUNXI_LRADC_KEY
 	sunxi_lradc_key_init();
 	mdelay(10);
+#endif
+
 	key = sunxi_key_read();
 	if (key > 8 && key < 13) {
 		printf("starting scanning usb for storage devices ...\n");
 		do_usb_start();
 	} else
 		printf("do not runing  scanning usb for storage devices ...\n");
+#endif
 	return usb_stor_curr_dev;
 }
 #elif defined CONFIG_AIOT_DISP_PARAM_UPDATE

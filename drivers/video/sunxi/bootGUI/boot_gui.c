@@ -56,7 +56,7 @@ int boot_gui_init(void)
 	struct canvas *cv = NULL;
 #endif
 
-	tick_printf("%s:start\n", __func__);
+	printf("%s:start\n", __func__);
 	dev_num = disp_devices_open();
 	if (dev_num < 0) {
 		ret = dev_num;

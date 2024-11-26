@@ -1368,7 +1368,7 @@ struct mmc *sunxi_mmc_init(int sdc_no)
 	priv->version = version;
 
 	if (cfg->io_is_1v8) {
-		MMCDBG("io is 1.8V\n");
+		MMCINFO("io is 1.8V\n");
 		cfg->host_caps |= MMC_MODE_HS200;
 		if (cfg->host_caps & MMC_MODE_8BIT)
 			cfg->host_caps |= MMC_MODE_HS400;

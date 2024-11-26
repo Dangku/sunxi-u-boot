@@ -11,6 +11,14 @@
 #include "sun55iw3p1-clk.dtsi"
 
 /{
+	boot_init_gpio {
+		device_type = "boot_init_gpio";
+		status = "disabled";
+		gpio_num = <2>;
+		gpio0 = <&r_pio PL 2 1 0 3 1>;
+		gpio1 = <&r_pio PL 3 1 0 3 1>;
+	};
+
 	edp_panel_backlight: edp_backlight {
 		compatible = "pwm-backlight";
 		status = "disabled";
@@ -304,7 +312,7 @@
 &platform {
 	eraseflag   = <1>;
 	next_work   = <3>;
-	debug_mode  = <1>;
+	debug_mode  = <7>;
 };
 
 /*

@@ -600,7 +600,14 @@ static int sunxi_drm_drv_probe(struct udevice *dev)
 		cmd2.pixel_format = DRM_FORMAT_ARGB8888;
 		cmd2.pitches[0] = cmd2.width * (ALIGN(32, 8) >> 3);
 		cmd2.offsets[0] = 0;
+
 		tmp_s->fb_id = drm_framebuffer_alloc(drm, &cmd2);
+
+		if (tmp_s->fb_id  < 0) {
+			DRM_ERROR("drm_framebuffer_alloc fail!\n");
+			return -ENODEV;
+		}
+
 		fb = drm_framebuffer_lookup(drm, tmp_s->fb_id);
 
 		if (!uc_priv->xsize || !uc_priv->ysize) {
@@ -729,9 +736,9 @@ static int load_bmp_logo(struct display_state *state, char *bmp_name)
 		state->logo = NULL;
 	}
 
-	state->logo = load_file(bmp_name, "boot-resource");
+	state->logo = load_file(bmp_name, "/boot");
 	if (!state->logo) {
-		state->logo = load_file(bmp_name, "bootloader");
+		state->logo = load_file(bmp_name, "/");
 	}
 
 	if (!state->logo) {

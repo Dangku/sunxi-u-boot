@@ -668,6 +668,7 @@ int board_env_late_init(void)
 		if (!gd->chargemode)
 			run_command("sunxi_show_logo", 0);
 #else
+		/* bpi, show logo here */
 		run_command("sunxi_show_logo", 0);
 #endif
 #endif /* CONFIG_AW_DRM */
@@ -796,7 +797,7 @@ int board_late_init(void)
 			ubi_nand_update_ubi_env();
 		else
 #endif
-#ifndef CONFIG_SUNXI_RTOS
+#if !defined(CONFIG_SUNXI_RTOS) && defined(CONFIG_TINA_LINUX)
 		sunxi_update_partinfo();
 		if (sunxi_update_rotpk_info()) {
 			return -1;
@@ -807,8 +808,12 @@ int board_late_init(void)
 		axp_battery_status_handle();
 #endif
 #endif
+#ifdef CONFIG_SUNXI_IR
 		sunxi_respond_ir_key_action();
+#endif
+#ifdef CONFIG_TINA_LINUX
 		sunxi_update_bootcmd();
+#endif
 #ifdef CONFIG_SUNXI_SERIAL
 		sunxi_set_serial_num();
 #endif

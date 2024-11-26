@@ -449,8 +449,9 @@ int sunxi_board_flash_probe(void)
 		state	    = board_flash->probe();
 		if (state == 0) {
 			set_board_flash_type(STORAGE_EMMC);
+		} else {
+			printf("try emmc fail\n");
 		}
-		printf("try emmc fail\n");
 #endif
 
 #ifdef CONFIG_SUNXI_NAND
@@ -458,8 +459,9 @@ int sunxi_board_flash_probe(void)
 		state	    = board_flash->probe();
 		if (state == 0) {
 			set_board_flash_type(STORAGE_NAND);
+		} else {
+			printf("try nand fail\n");
 		}
-		printf("try nand fail\n");
 #endif
 
 #ifdef CONFIG_SUNXI_SPINOR
@@ -467,9 +469,9 @@ int sunxi_board_flash_probe(void)
 		state	    = board_flash->probe();
 		if (state == 0) {
 			set_board_flash_type(STORAGE_NOR);
+		} else {
+			printf("try spinor fail\n");
 		}
-
-		printf("try spinor fail\n");
 #endif
 
 		if (state != 0) {

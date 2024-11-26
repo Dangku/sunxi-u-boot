@@ -117,16 +117,18 @@ void print_mmc_devices(char separator)
 		else
 			mmc_type = NULL;
 
-		MMCDBG("%s: %d", m->cfg->name, m->block_dev.devnum);
-		if (mmc_type)
-			MMCINFO(" (%s)", mmc_type);
+		if (mmc_type) 
+			MMCINFO("(%s): %d\n", mmc_type, m->block_dev.devnum);
+		else
+			MMCINFO("%s: %d\n", m->cfg->name, m->block_dev.devnum);
 
 		if (entry->next != &mmc_devices) {
-			MMCINFO("%c", separator);
+			MMCDBG("%c", separator);
 			if (separator != '\n')
 				puts(" ");
 		}
 	}
+	printf("\n");
 }
 
 #else
