@@ -61,7 +61,7 @@ fit-dtb.blob
 /include/generated/
 
 # Generated c files
-board/sunxi/sunxi_challenge.c
+#board/sunxi/sunxi_challenge.c
 
 # stgit generated dirs
 patches-*

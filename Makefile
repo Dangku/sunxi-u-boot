@@ -538,10 +538,10 @@ config: scripts_basic outputmakefile FORCE
 
 %config: scripts_basic outputmakefile FORCE
 	$(Q)$(MAKE) $(build)=scripts/kconfig $@
-ifneq ($(findstring defconfig, $(MAKECMDGOALS)),)
-	$(shell md5sum "configs/$(MAKECMDGOALS)" | awk '{printf $$1}' > .tmp_defcofig.o.md5sum)
-	$(Q)md5sum ".config" | awk '{printf $$1}' > .tmp_config_from_defconfig.o.md5sum
-endif
+#ifneq ($(findstring defconfig, $(MAKECMDGOALS)),)
+#	$(shell md5sum "configs/$(MAKECMDGOALS)" | awk '{printf $$1}' > .tmp_defcofig.o.md5sum)
+#	$(Q)md5sum ".config" | awk '{printf $$1}' > .tmp_config_from_defconfig.o.md5sum
+#endif
 
 else
 # ===========================================================================
@@ -1555,16 +1555,16 @@ define filechk_version.h
 	echo \#define LD_VERSION_STRING \"$$(LC_ALL=C $(LD) --version | head -n 1)\"; )
 endef
 
-DIRTY:=$(shell echo `git describe --dirty|grep -o dirty$$`)
-DEF_DOT_CONFIG_HASH=$(shell echo `cat .tmp_config_from_defconfig.o.md5sum`)
-CUR_DOT_CONFIG_HASH=$(shell echo `md5sum .config| awk '{printf $$1}'`)
-CONFIG_DIRTY:=$(shell if [ $(DEF_DOT_CONFIG_HASH) = $(CUR_DOT_CONFIG_HASH) ]; \
-	then echo ""; \
-	else echo "-config-dirty"; \
-	fi)
-ifeq ($(DIRTY)$(CONFIG_DIRTY),)
-	export SOURCE_DATE_EPOCH=$(shell echo `git log -1 --pretty=%ct`)
-endif
+#DIRTY:=$(shell echo `git describe --dirty|grep -o dirty$$`)
+#DEF_DOT_CONFIG_HASH=$(shell echo `cat .tmp_config_from_defconfig.o.md5sum`)
+#CUR_DOT_CONFIG_HASH=$(shell echo `md5sum .config| awk '{printf $$1}'`)
+#CONFIG_DIRTY:=$(shell if [ $(DEF_DOT_CONFIG_HASH) = $(CUR_DOT_CONFIG_HASH) ]; \
+#	then echo ""; \
+#	else echo "-config-dirty"; \
+#	fi)
+#ifeq ($(DIRTY)$(CONFIG_DIRTY),)
+#	export SOURCE_DATE_EPOCH=$(shell echo `git log -1 --pretty=%ct`)
+#endif
 
 
 # The SOURCE_DATE_EPOCH mechanism requires a date that behaves like GNU date.
