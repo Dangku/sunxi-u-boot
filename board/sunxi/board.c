@@ -281,6 +281,7 @@ int dram_init(void)
 	uint dram_size = 0;
 	dram_size = uboot_spare_head.boot_data.dram_scan_size;
 
+	//bpi, 32bit, 2GB??
 	dram_size = dram_size > 2048 ? 2048 : dram_size;
 
 	if(dram_size)

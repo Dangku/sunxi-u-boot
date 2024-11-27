@@ -170,7 +170,7 @@ static int show_dram_config(void)
 #else
 	size = gd->ram_size;
 #endif
-	size = uboot_spare_head.boot_data.dram_scan_size ? (phys_size_t)uboot_spare_head.boot_data.dram_scan_size * 1024 * 1024 : size;
+	//size = uboot_spare_head.boot_data.dram_scan_size ? (phys_size_t)uboot_spare_head.boot_data.dram_scan_size * 1024 * 1024 : size;
 	print_size(size, "");
 	board_add_ram_info(0);
 	putc('\n');
@@ -182,7 +182,11 @@ __weak int dram_init_banksize(void)
 {
 #if defined(CONFIG_NR_DRAM_BANKS) && defined(CONFIG_SYS_SDRAM_BASE)
 	gd->bd->bi_dram[0].start = CONFIG_SYS_SDRAM_BASE;
+#if 0  /* bpi, set real dram size */
 	gd->bd->bi_dram[0].size = get_effective_memsize();
+#else
+	gd->bd->bi_dram[0].size = uboot_spare_head.boot_data.dram_scan_size ? (phys_size_t)uboot_spare_head.boot_data.dram_scan_size * 1024 * 1024 : get_effective_memsize();;
+#endif
 #endif
 
 	return 0;
