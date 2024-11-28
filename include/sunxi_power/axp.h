@@ -53,6 +53,7 @@ int (*set_dcdc_mode)(const char *name, int mode); /*force dcdc mode in pwm or no
 int (*get_sys_mode)(void); /*Get the current state*/
 int (*get_key_irq)(void); /*Get the button length interrupt*/
 int (*set_bus_vol_limit)(int vol_value); /*Set limit total voltage*/
+int (*set_bus_cur_limit)(int cur_value); /*Set limit total current*/
 unsigned char (*get_reg_value)(unsigned char reg_addr);/*get register value*/
 unsigned char (*set_reg_value)(unsigned char reg_addr, unsigned char reg_value);/*set register value*/
 int (*reg_debug)(void); /*Get debug message*/
@@ -107,6 +108,7 @@ int pmu_set_dcdc_mode(const char *name, int mode);
 int pmu_get_sys_mode(void);
 int pmu_get_key_irq(void);
 int pmu_set_bus_vol_limit(int vol_value);
+int pmu_set_bus_cur_limit(int cur_value);
 unsigned char pmu_get_reg_value(unsigned char reg_addr);
 unsigned char pmu_set_reg_value(unsigned char reg_addr, unsigned char reg_value);
 int pmu_reg_debug(void);

@@ -402,6 +402,39 @@ int pmu_axp2202_set_bus_vol_limit(int vol)
 	return 0;
 }
 
+int pmu_axp2202_set_bus_cur_limit(int cur)
+{
+	uchar reg_value;
+
+	if (!cur)
+		return 0;
+
+	/* set bus vol limit off */
+	if (pmic_bus_read(AXP2202_RUNTIME_ADDR, AXP2202_IIN_LIM, &reg_value)) {
+		return -1;
+	}
+	reg_value &= ~0x3f;
+
+	if (cur > 3250) {
+		cur = 3250;
+	} else if (cur < 100) {
+		cur = 100;
+	}
+	reg_value |= (cur - 100) / 50;
+	if (pmic_bus_write(AXP2202_RUNTIME_ADDR, AXP2202_IIN_LIM, reg_value)) {
+		return -1;
+	}
+
+	if (pmic_bus_read(AXP2202_RUNTIME_ADDR, AXP2202_IIN_LIM, &reg_value)) {
+		return -1;
+	}
+
+	pr_msg("[AXP2202] input current limit set to:0x%x\n", reg_value);
+
+	return 0;
+}
+
+
 int pmu_axp2202_set_bc12_mode(const char *name, int mode)
 {
 	u8 reg_value = 0, mask = 0;
@@ -423,11 +456,6 @@ int pmu_axp2202_set_bc12_mode(const char *name, int mode)
 		return -1;
 
 	pmic_bus_setbits(AXP2202_RUNTIME_ADDR, AXP2202_BC_CFG3, BIT(7));
-
-	if (pmic_bus_read(AXP2202_RUNTIME_ADDR, AXP2202_IIN_LIM, &reg_value))
-		return -1;
-
-	pr_msg("[AXP2202] input limit set to:0x%x\n", reg_value);
 
 	return 0;
 }
@@ -524,6 +552,7 @@ U_BOOT_AXP_PMU_INIT(pmu_axp2202) = {
 	.get_sys_mode      = pmu_axp2202_get_sys_mode,
 	.get_key_irq       = pmu_axp2202_get_key_irq,
 	.set_bus_vol_limit = pmu_axp2202_set_bus_vol_limit,
+	.set_bus_cur_limit = pmu_axp2202_set_bus_cur_limit,
 	.set_dcdc_mode     = pmu_axp2202_set_dcdc_mode,
 	.get_reg_value	   = pmu_axp2202_get_reg_value,
 	.set_reg_value	   = pmu_axp2202_set_reg_value,

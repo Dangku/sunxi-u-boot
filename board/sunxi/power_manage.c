@@ -236,6 +236,9 @@ int axp_set_power_supply_output(void)
 	set_gpio_bias();
 #endif
 
+	/*bpi, set current limit*/
+	pmu_set_bus_cur_limit(3000);
+
 	return 0;
 }
 

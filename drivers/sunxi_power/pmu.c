@@ -147,6 +147,15 @@ int pmu_set_bus_vol_limit(int vol_value)
 	return -1;
 }
 
+/*Set limit total voltage*/
+int pmu_set_bus_cur_limit(int cur_value)
+{
+	if ((sunxi_pmu_dev) && (sunxi_pmu_dev->set_bus_cur_limit))
+		return sunxi_pmu_dev->set_bus_cur_limit(cur_value);
+	axp_err("not imple:%s\n", __func__);
+	return -1;
+}
+
 /*get register value*/
 unsigned char pmu_get_reg_value(unsigned char reg_addr)
 {
