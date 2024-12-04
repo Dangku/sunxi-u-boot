@@ -34,8 +34,10 @@
 		pwm3  = &pwm3;
 		pwm4  = &pwm4;
 		pwm5  = &pwm5;
+		pwm14 = &pwm14;
 		s_pwm = &s_pwm;
 		spwm0 = &spwm0;
+		spwm1 = &spwm1;
 		spi0  = &spi0;
 		spif  = &spif;
 		edp0  = &edp0;
@@ -256,10 +258,22 @@
 			pwm5_pin_b: pwm5@1 {
 			};
 
+			pwm14_pin_a: pwm14@0 {
+			};
+
+			pwm14_pin_b: pwm14@1 {
+			};
+
 			spwm0_pin_active: spwm0@0 {
 			};
 
 			spwm0_pin_sleep: spwm0@1 {
+			};
+
+			spwm1_pin_a: spwm1@0 {
+			};
+
+			spwm1_pin_b: spwm1@1 {
 			};
 
 			s_cir0_pins_a: s_cir0@0 {
@@ -276,7 +290,7 @@
 			device_type = "key_boot_recovery";
 		};
 
-pwm: pwm@2000c00 {
+		pwm: pwm@2000c00 {
 			#pwm-cells = <0x3>;
 			compatible = "allwinner,sunxi-pwm";
 			reg = <0x0 0x02000c00 0x0 0x3ff>;
@@ -409,10 +423,10 @@ pwm: pwm@2000c00 {
                        sunxi-pwms = <&spwm0>, <&spwm1>, <&spwm2>, <&spwm3>;
                };
 
-               spwm0: spwm0@2051010 {
+               spwm0: spwm0@2051000 {
                        compatible = "allwinner,sunxi-pwm16";
                        pinctrl-names = "active", "sleep";
-                       reg = <0x0 0x02051010 0x0 0x4>;
+                       reg = <0x0 0x02051000 0x0 0x4>;
                        reg_base = <0x02051000>;
                        status = "disabled";
                };
