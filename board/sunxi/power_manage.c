@@ -737,12 +737,7 @@ int axp_battery_status_handle(void)
 			tick_printf("press power_on to start up\n");
 			sunxi_bat_key_handle();
 		} else {
-#if defined(CONFIG_EINK200_SUNXI) || defined(CONFIG_CMD_SUNXI_BMP)
-			sunxi_bmp_display("bat\\battery_charge.bmp");
-#endif
-#if defined(CONFIG_AW_DRM)
-			sunxi_show_bmp("bat\\battery_charge.bmp");
-#endif
+			tick_printf("normal boot\n");
 		}
 	} else if ((battery_status == BATTERY_RATIO_TOO_LOW_WITHOUT_DCIN) || (battery_status == BATTERY_VOL_TOO_LOW)) {
 #if defined(CONFIG_EINK200_SUNXI) || defined(CONFIG_CMD_SUNXI_BMP)

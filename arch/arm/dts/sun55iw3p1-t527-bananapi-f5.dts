@@ -305,8 +305,8 @@
 	ext_dcdc2_mode = <1>;
 	dcdc2_mode = <1>;
 	bc12_mode = <0>;
-	ntc_status = <2>;
-	battery_exist = <0>;
+	ntc_status = <0>;
+	battery_exist = <1>;
 };
 
 &platform {

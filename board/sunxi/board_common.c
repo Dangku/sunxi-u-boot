@@ -664,13 +664,8 @@ int board_env_late_init(void)
 #endif
 
 #ifdef CONFIG_AW_DRM
-#ifdef CONFIG_SUNXI_POWER
-		if (!gd->chargemode)
-			run_command("sunxi_show_logo", 0);
-#else
 		/* bpi, show logo here */
 		run_command("sunxi_show_logo", 0);
-#endif
 #endif /* CONFIG_AW_DRM */
 
 #ifdef CONFIG_SUNXI_SPINOR_BMP
