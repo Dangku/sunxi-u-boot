@@ -126,7 +126,7 @@ static int pmu_axp1530_probe(void)
 			|| pmu_chip_id == AXP323_CHIP_ID) {
 		/*pmu type AXP1530*/
 		pmu_axp1530_necessary_reg_enable();
-		tick_printf("PMU: AXP1530\n");
+		tick_printf("PMU_EXT: AXP1530\n");
 		return 0;
 	}
 
