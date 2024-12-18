@@ -264,6 +264,7 @@
 
 /* drm route */
 &disp0_hdmi {
+	force-output;
 	status = "okay";
 };
 

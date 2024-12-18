@@ -647,12 +647,12 @@ static int sunxi_drm_drv_probe(struct udevice *dev)
 		cmd2.offsets[0] = 0;
 
 		tmp_s->fb_id = drm_framebuffer_alloc(drm, &cmd2);
-
+#if 0
 		if (tmp_s->fb_id  < 0) {
 			DRM_ERROR("drm_framebuffer_alloc fail!\n");
 			return -ENODEV;
 		}
-
+#endif
 		fb = drm_framebuffer_lookup(drm, tmp_s->fb_id);
 
 		if (!uc_priv->xsize || !uc_priv->ysize) {
