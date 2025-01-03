@@ -226,6 +226,7 @@ int sunxi_android_boot(const char *image_name, ulong os_load_addr);
 int do_box_standby(void);
 int atf_box_standby(void);
 int check_ir_boot_recovery(void);
+void sunxi_hw_rev(void);
 int check_recovery_key(void);
 void sunxi_respond_ir_key_action(void);
 int sunxi_boot_init_gpio(void);

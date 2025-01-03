@@ -13,7 +13,7 @@
 /{
 	boot_init_gpio {
 		device_type = "boot_init_gpio";
-		status = "disabled";
+		status = "okay";
 		gpio_num = <3>;
 		gpio0 = <&r_pio PL 2 1 0 3 0>; /*led0*/
 		gpio1 = <&r_pio PL 3 1 0 3 0>; /*led1*/
@@ -58,8 +58,9 @@
 			248 249 250 251 252 253 254 255>;
 		default-brightness-level = <200>;
 		enable-gpios = <&pio PI 15 1 0 3 1>;
-		/* power-supply = <&reg_backlight_12v>; */
-		pwms = <&s_pwm 17 5000000 0>; /*spwm1*/
+		enable1-gpios = <&pio PI 16 1 0 3 1>;
+		//pwms = <&s_pwm 17 5000000 0>; /*spwm1*/
+		pwms = <&pwm 4 5000000 0>;
 	};
 
 	edp_panel: edp_panel {
@@ -891,7 +892,7 @@
 };
 
 /* drm route */
-&disp0_hdmi {
+&disp1_hdmi {
 	force-output;
 	status = "okay";
 };

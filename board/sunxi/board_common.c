@@ -660,6 +660,10 @@ void board_bootlogo_display(void)
 int board_env_late_init(void)
 {
 	if (get_boot_work_mode() == WORK_MODE_BOOT) {
+#ifdef CONFIG_SUNXI_GPADC
+		sunxi_hw_rev();
+#endif
+
 #ifdef CONFIG_SUNXI_POWER
 		sunxi_update_axp_info();
 #endif
@@ -753,7 +757,6 @@ int board_late_init(void)
 #ifdef CONFIG_SUNXI_SWITCH_SYSTEM
 		sunxi_auto_switch_system();
 #endif
-
 
 #ifdef CONFIG_SUNXI_LRADC_VOL
 /* Note: lradc should be initialized 30ms before

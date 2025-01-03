@@ -35,6 +35,7 @@ ifneq ($(CONFIG_SUNXI_REPLACE_FDT_FROM_PARTITION)$(CONFIG_SUNXI_NECESSARY_REPLAC
 obj-y += sunxi_replace_fdt.o
 endif
 obj-$(CONFIG_SUNXI_LRADC_VOL)	+= sunxi_lradc_vol.o
+obj-$(CONFIG_SUNXI_GPADC) += sunxi_hw_rev.o
 obj-$(CONFIG_SUNXI_MIPS) += sunxi_mips.o
 
 obj-$(CONFIG_SUNXI_IMAGE_HEADER) += sunxi_image_header.o

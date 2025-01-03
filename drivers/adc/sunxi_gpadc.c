@@ -21,21 +21,21 @@ int sunxi_gpadc_init(void)
 	/* reset */
 	reg_val = readl(&ccm->gpadc_gate_reset);
 	reg_val &= ~(1 << 16);
-	writel(reg_val, ccm->gpadc_gate_reset);
+	writel(reg_val, &ccm->gpadc_gate_reset);
 
 	udelay(2);
 
 	reg_val |= (1 << 16);
-	writel(reg_val, ccm->gpadc_gate_reset);
+	writel(reg_val, &ccm->gpadc_gate_reset);
 
 	/* enable ADC gating */
 	reg_val = readl(&ccm->gpadc_gate_reset);
 	reg_val |= (1 << 0);
-	writel(reg_val, ccm->gpadc_gate_reset);
+	writel(reg_val, &ccm->gpadc_gate_reset);
 
 	/*choose channel 0*/
 	reg_val = readl(GP_CS_EN);
-	reg_val |= 1;
+	reg_val |= 0xff;
 	writel(reg_val, GP_CS_EN);
 
 	/*choose continue work mode and enable ADC*/
@@ -46,7 +46,7 @@ int sunxi_gpadc_init(void)
 
 	/* disable all key irq */
 	writel(0, GP_DATA_INTC);
-	writel(1, GP_DATA_INTS);
+	writel(0xff, GP_DATA_INTS);
 
 	return 0;
 
@@ -62,14 +62,14 @@ int sunxi_gpadc_read(int channel)
 	/* clear the pending data */
 	writel(readl(GP_DATA_INTS)|(ints & 0x1), GP_DATA_INTS);
 	/* if there is already data pending, read it */
-	if (ints & GPADC0_DATA_PENDING) {
-		for (i = 0; i < 5; i++) {
+	//if (ints & GPADC0_DATA_PENDING) {
+		for (i = 0; i < 100; i++) {
 			snum += readl(GP_CH0_DATA + (channel * 4));
 			udelay(5);
 		}
 		key = snum / (i - 1);
-		printf("adc value=0x%x\n", key);
-	}
+		//printf("adc value=0x%x\n", key);
+	//}
 	return key;
 }
 
