@@ -134,24 +134,24 @@ void sunxi_hw_rev(void)
 
 	//if (IS_RANGE(dsi0_adc, 0, 4300)) {
 	//	printf("dsi0 HC070IY30025 800x1280 panel connected\n");
-	//	sunxi_update_fdt(BOOT_DSI0_HC070IY30025);
+	//	sunxi_update_fdt((void *)gd->fdt_blob, BOOT_DSI0_HC070IY30025);
 	//	snprintf(s, sizeof(s), "allwinner/sun55i-t527-bananapi-f5-%s.dtb", "dsi0-hc070iy30025");
 	//}
 	//if (IS_RANGE(dsi1_adc, 0, 4300)) {
 	//	printf("dsi1 HC070IY30025 800x1280 panel connected\n");
-	//	sunxi_update_fdt(BOOT_DSI1_HC070IY30025);
+	//	sunxi_update_fdt((void *)gd->fdt_blob, BOOT_DSI1_HC070IY30025);
 	//	snprintf(s, sizeof(s), "allwinner/sun55i-t527-bananapi-f5-%s.dtb", "dsi1-hc070iy30025");
 	//}
-	if (IS_RANGE(edp_adc, 0, 4300)) {
-		tick_printf("edp  1920x1080 panel connected\n");
-		sunxi_update_fdt((void *)gd->fdt_blob, BOOT_EDP_AML133X30);
-		snprintf(s, sizeof(s), "allwinner/sun55i-t527-bananapi-f5-%s.dtb", "edp-aml133x30");
-	} 
-	//{
-	//	printf("lcd not connected, hdmi only\n");
-	//	sunxi_update_fdt(BOOT_HDMI);
-	//	snprintf(s, sizeof(s), "allwinner/sun55i-t527-bananapi-f5.dtb");
-	//}
+	//if (IS_RANGE(edp_adc, 0, 4300)) {
+	//	tick_printf("edp  1920x1080 panel connected\n");
+	//	sunxi_update_fdt((void *)gd->fdt_blob, BOOT_EDP_AML133X30);
+	//	snprintf(s, sizeof(s), "allwinner/sun55i-t527-bananapi-f5-%s.dtb", "edp-aml133x30");
+	//} 
+	{
+		printf("lcd not connected, hdmi only\n");
+		sunxi_update_fdt((void *)gd->fdt_blob, BOOT_HDMI);
+		snprintf(s, sizeof(s), "allwinner/sun55i-t527-bananapi-f5.dtb");
+	}
 
 	env_set("fdtfile", s);
 	
