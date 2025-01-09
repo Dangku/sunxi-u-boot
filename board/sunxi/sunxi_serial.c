@@ -51,7 +51,7 @@ int get_serial_num_from_file(char *serial)
 	return 0;
 }
 
-int get_serial_num_from_chipid(char *serial)
+int get_serial_num_from_chipid(char *chipid, char *serial)
 {
 	u32 sunxi_soc_chipid[4];
 	u32 sunxi_serial[3];
@@ -70,6 +70,7 @@ int get_serial_num_from_chipid(char *serial)
 	sunxi_serial[1] = sunxi_soc_chipid[2];
 	sunxi_serial[2] = sunxi_soc_chipid[3];
 
+	sprintf(chipid, "%08x%08x%08x%08x", sunxi_soc_chipid[0], sunxi_soc_chipid[1], sunxi_soc_chipid[2], sunxi_soc_chipid[3] );
 	sprintf(serial, "%03x%08x%08x", sunxi_serial[0], sunxi_serial[1], sunxi_serial[2]);
 	return 0;
 }
@@ -77,6 +78,7 @@ int get_serial_num_from_chipid(char *serial)
 int sunxi_set_serial_num(void)
 {
 	char *serial = NULL;
+	char *chipid = NULL;
 	char *p = NULL;
 
 	p = env_get("snum");
@@ -90,13 +92,26 @@ int sunxi_set_serial_num(void)
 	}
 	memset(serial, '\0', 128);
 
-	get_serial_num_from_chipid(serial);
+	chipid = (char *)malloc_align(128, 64);
+	if (!chipid) {
+		pr_err("error : malloc serial fail\n");
+		return -1;
+	}
+	memset(chipid, '\0', 128);
+
+	get_serial_num_from_chipid(chipid, serial);
 
 	pr_msg("serial num is: %s\n", serial);
+	pr_msg("chipid is: %s\n", chipid);
+
 	if (env_set("snum", serial))
 		pr_err("error:set env snum fail\n");
 
+	if (env_set("chipid", chipid))
+		pr_err("error:set chipid fail\n");
+
 	free_align(serial);
+	free_align(chipid);
 
 	return 0;
 }
